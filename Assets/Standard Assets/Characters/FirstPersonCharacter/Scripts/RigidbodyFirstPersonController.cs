@@ -128,7 +128,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Update()
         {
-            //RotateView();
+            RotateView();
 
             if (CrossPlatformInputManager.GetButtonDown("Jump") && !m_Jump)
             {
@@ -214,8 +214,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
             
             Vector2 input = new Vector2
                 {
-                    x = CrossPlatformInputManager.GetAxis("Horizontal"),
-                    y = CrossPlatformInputManager.GetAxis("Vertical")
+                    x = Input.GetAxis("Horizontal"),
+                    y = Input.GetAxis("Vertical")
                 };
 			movementSettings.UpdateDesiredTargetSpeed(input);
             return input;
@@ -230,7 +230,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
             // get the rotation before it's changed
             float oldYRotation = transform.eulerAngles.y;
 
-            //mouseLook.LookRotation (transform, cam.transform);
+            mouseLook.LookRotation (transform, cam.transform);
 
             if (m_IsGrounded || advancedSettings.airControl)
             {

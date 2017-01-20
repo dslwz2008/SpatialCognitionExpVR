@@ -69,8 +69,13 @@ namespace FastFileLog {
         }
 
         protected virtual string GetFileFullPath(string name) {
+#if UNITY_ANDROID
+            return Application.persistentDataPath + "/" +
+                name + "_" + System.DateTime.Now.ToString("MM-dd-yyyy-HH-mm") + ".txt";
+#else
             return Application.dataPath + "/" + LogManager.Instance.savePath + "/" +
                 name + "_" + System.DateTime.Now.ToString("MM-dd-yyyy-HH-mm") + ".txt";
+#endif
         }
         #endregion
 
@@ -88,7 +93,7 @@ namespace FastFileLog {
         public static bool IsNull(Logger l) {
             return l == NullLogger;
         }
-        #endregion
+#endregion
 
 
         public Logger(string name, bool enabled) {
@@ -99,7 +104,7 @@ namespace FastFileLog {
             WriteToStream(data, " ----- Log: " + System.DateTime.Now.ToString("dd-MM-yyyy") + "  ----- \n");
         }
 
-        #region Helper
+#region Helper
         private System.Text.UnicodeEncoding uniEncoding = new System.Text.UnicodeEncoding();
         private void WriteToStream(Stream stream, string msg) {
             if (stream != null) {
@@ -107,6 +112,6 @@ namespace FastFileLog {
                 0, uniEncoding.GetByteCount(msg));
             }
         }
-        #endregion
+#endregion
     }
 }
